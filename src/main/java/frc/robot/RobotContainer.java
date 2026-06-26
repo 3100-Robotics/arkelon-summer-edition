@@ -19,10 +19,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.commands.SetIndexerFwd;
 import frc.robot.commands.SetIntakeRoller;
 import frc.robot.commands.SetIntakeRollerSpeed;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeRoller;
 
 public class RobotContainer {
@@ -43,6 +45,7 @@ public class RobotContainer {
     // public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     private final IntakeRoller intakeRoller = new IntakeRoller();
+    private final Indexer indexer = new Indexer();
 
     public RobotContainer() {
         configureBindings();
@@ -52,6 +55,8 @@ public class RobotContainer {
     private void configureBindings() {
         joystick.a().whileTrue(new SetIntakeRoller(intakeRoller, 0.5));
         joystick.b().whileTrue(new SetIntakeRollerSpeed(intakeRoller, RPM.of(3100)));
+
+        joystick.x().whileTrue(new SetIndexerFwd(indexer, RPM.of(4000), RPM.of(3000), RPM.of(3000)));
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         // drivetrain.setDefaultCommand(
